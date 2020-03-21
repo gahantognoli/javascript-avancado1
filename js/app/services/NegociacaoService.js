@@ -4,6 +4,50 @@ class NegociacaoService {
         this._http = new HttpService();
     }
 
+    cadastrar(negociacao) {
+        return ConnectionFactory.getConnection()
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.adicionar(negociacao))
+            .then(() => 'Negociacao adicionada com sucesso')
+            .catch(erro => {
+                console.log(erro);
+                throw new Erro('Não foi possível adicionar a negociação')
+            });
+    }
+
+    listar() {
+        return ConnectionFactory.getConnection()
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.listaTodos())
+            .catch(erro => {
+                console.log(erro);
+                throw new Error('Não foi possível obter as negociações');
+            });
+    }
+
+    apagar() {
+        return ConnectionFactory.getConnection()
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.apagaTodos())
+            .then(() => 'Negociações apagadas com sucesso')
+            .catch(erro => {
+                console.log(erro);
+                throw new Error('Não foi possível apagar as negociações');
+            });
+    }
+
+    importa(listaAtual) {
+        return this.obterNegociacoes()
+            .then(negociacoes =>
+                negociacoes.filter(negociacao =>
+                    !listaAtual.some(negociacaoExistente =>
+                        JSON.stringify(negociacaoExistente) == JSON.stringify(negociacao))))
+            .catch(erro => {
+                console.log(erro);
+                throw new Error('Não foi possível importar negociações');
+            })
+    }
+
     obterNegociacoesSemana() {
         return new Promise((resolve, reject) => {
             this._http.get('negociacoes/semana')
