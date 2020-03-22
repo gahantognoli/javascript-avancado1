@@ -41,7 +41,7 @@ class NegociacaoService {
             .then(negociacoes =>
                 negociacoes.filter(negociacao =>
                     !listaAtual.some(negociacaoExistente =>
-                        JSON.stringify(negociacaoExistente) == JSON.stringify(negociacao))))
+                        negociacao.isEquals(negociacaoExistente))))
             .catch(erro => {
                 console.log(erro);
                 throw new Error('Não foi possível importar negociações');
