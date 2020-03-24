@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "babel js/app-es6 -d js/app --source-maps",
+    "watch": "babel js/app-es6 -d js/app --source-maps --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +19,11 @@
   },
   "homepage": "https://github.com/gahantognoli/javascript-avancado1#readme",
   "devDependencies": {
-    "babel-cli": "^6.10.1"
+    "babel-cli": "^6.10.1",
+    "babel-plugin-transform-es2015-modules-systemjs": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0"
+  },
+  "dependencies": {
+    "systemjs": "^0.19.31"
   }
 }

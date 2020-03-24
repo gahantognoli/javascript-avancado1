@@ -2,6 +2,7 @@
 
 ### O que aprendi?
 
+- Módulos 
 - Fetch API
 - DAO Pattern 
 - Indexed BD
